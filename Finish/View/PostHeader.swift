@@ -93,12 +93,14 @@ class PostHeader: UICollectionReusableView {
     
     private lazy var commentButton: UIButton = {
         let button = createButton(withImageName: "comment")
+        button.tintColor = UIColor(named: "labelTextColor")
         button.addTarget(self, action: #selector(handleCommentTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var likeButton: UIButton = {
         let button = createButton(withImageName: "like")
+        button.tintColor = UIColor(named: "labelTextColor")
         button.addTarget(self, action: #selector(handleLikeTapped), for: .touchUpInside)
         return button
     }()
@@ -201,7 +203,7 @@ class PostHeader: UICollectionReusableView {
     func createButton(withImageName imageName: String) -> UIButton {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: imageName), for: .normal)
-        button.tintColor = .darkGray
+        button.tintColor = UIColor(named: "labelTextColor")
         button.setDimensions(width: 20, height: 20)
         return button
     }

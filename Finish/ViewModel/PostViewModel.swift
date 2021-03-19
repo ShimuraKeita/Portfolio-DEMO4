@@ -60,7 +60,7 @@ struct PostViewModel {
     }
     
     var likeButtonTintColor: UIColor {
-        return post.didLike ? .red : .lightGray
+        return post.didLike ? .red : UIColor(named: "labelTextColor") ?? .black
     }
     
     var likeButtonImage: UIImage {
