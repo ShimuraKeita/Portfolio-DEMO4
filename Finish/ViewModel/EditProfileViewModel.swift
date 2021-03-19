@@ -15,10 +15,10 @@ enum EditProfileOptions: Int, CaseIterable {
     
     var description: String {
         switch self {
-        case .username: return "ユーザーネーム"
         case .fullname: return "名前"
+        case .username: return "ユーザーネーム"
         case .sick: return "病名"
-        case .bio: return "プロフィール文"
+        case .bio: return "自己紹介"
         }
     }
 }
@@ -32,12 +32,21 @@ struct EditProfileViewModel {
         return option.description
     }
     
-    var optionValue: String? {
+    var optionValue: String {
         switch option {
-        case .username: return user.username
         case .fullname: return user.fullname
+        case .username: return user.username
         case .sick: return user.sick
         case .bio: return user.bio
+        }
+    }
+    
+    var optionPlaceholderText: String {
+        switch option {
+        case .fullname: return "名前を追加"
+        case .username: return "ユーザーネームを追加"
+        case .sick: return "病名を追加"
+        case .bio: return "プロフィールに自己紹介を追加"
         }
     }
     
@@ -50,7 +59,7 @@ struct EditProfileViewModel {
     }
     
     var shouldHidePlaceholderLabel: Bool {
-        return user.bio != nil
+        return user.bio != ""
     }
     
     init(user: User, option: EditProfileOptions) {
