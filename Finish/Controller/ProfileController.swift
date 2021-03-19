@@ -70,18 +70,21 @@ class ProfileController: UICollectionViewController {
         PostService.shared.fetchPosts(forUser: user) { (posts) in
             self.posts = posts.sorted(by: { $0.timestamp > $1.timestamp })
             self.checkIfUserLikedPosts()
+            self.collectionView.reloadData()
         }
     }
     
     func fetchLikedPosts() {
         PostService.shared.fetchLikes(forUser: user) { posts in
             self.likedPosts = posts.sorted(by: { $0.timestamp > $1.timestamp })
+            self.checkIfUserLikedPosts()
         }
     }
     
     func fetchReplies() {
         PostService.shared.fetchReplies(forUser: user) { (posts) in
-            self.replies = posts
+            self.posts = posts.sorted(by: { $0.timestamp > $1.timestamp })
+            self.checkIfUserLikedPosts()
         }
     }
     
