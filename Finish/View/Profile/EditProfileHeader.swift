@@ -23,7 +23,7 @@ class EditProfileHeader: UIView {
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
         iv.backgroundColor = .lightGray
-        iv.layer.borderColor = UIColor(named: "buttonColor")?.cgColor
+        iv.layer.borderColor = UIColor(named: "buttonBorderColor")?.cgColor
         iv.layer.borderWidth = 3.0
         return iv
     }()
