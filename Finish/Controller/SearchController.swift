@@ -112,7 +112,11 @@ extension SearchController {
 
 extension SearchController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 300)
+        
+        let user = inSearchMode ? filteredUsers[indexPath.row] : users[indexPath.row]
+        let viewModel = UserCellViewModel(user: user)
+        let height = viewModel.size(forWidth: view.frame.width).height
+        return CGSize(width: view.frame.width, height: height + 115)
     }
 }
 
