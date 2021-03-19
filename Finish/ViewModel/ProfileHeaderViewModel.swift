@@ -79,7 +79,7 @@ struct ProfileHeaderViewModel {
     
     fileprivate func attributedText(withValue value: Int, text: String,
                                     valueColor: UIColor, textColor: UIColor) -> NSAttributedString {
-        let attributedTitle = NSMutableAttributedString(string: "\(value)",
+        let attributedTitle = NSMutableAttributedString(string: "\(value)\n",
             attributes: [.font : UIFont.boldSystemFont(ofSize: 14), .foregroundColor: valueColor])
         
         attributedTitle.append(NSAttributedString(string: " \(text)",

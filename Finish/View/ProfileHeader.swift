@@ -129,12 +129,12 @@ class ProfileHeader: UICollectionReusableView {
         addSubview(imageLabelStack)
         imageLabelStack.anchor(top: topAnchor, left: leftAnchor, paddingTop: 16, paddingLeft: 12)
         
-        let dataLabel = UIStackView(arrangedSubviews: [postsLabel, followersLabel, followingLabel])
-        dataLabel.spacing = 50
+        let dataStack = UIStackView(arrangedSubviews: [postsLabel, followersLabel, followingLabel])
+        dataStack.spacing = 50
         
-        addSubview(dataLabel)
-        dataLabel.centerX(inView: self)
-        dataLabel.anchor(top: imageLabelStack.bottomAnchor, paddingTop: 16)
+        addSubview(dataStack)
+        dataStack.centerX(inView: self)
+        dataStack.anchor(top: imageLabelStack.bottomAnchor, paddingTop: 16)
         
         let bioButtonStack = UIStackView(arrangedSubviews: [sickLabel, bioLabel,
                                                             editProfileFollowButton])
@@ -146,7 +146,7 @@ class ProfileHeader: UICollectionReusableView {
         optionsButton.anchor(right: rightAnchor, paddingRight: 8)
         
         addSubview(bioButtonStack)
-        bioButtonStack.anchor(top: dataLabel.bottomAnchor, left: leftAnchor,
+        bioButtonStack.anchor(top: dataStack.bottomAnchor, left: leftAnchor,
                                        right: rightAnchor, paddingTop: 16,
                                        paddingLeft: 24, paddingRight: 24)
         
