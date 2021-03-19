@@ -47,12 +47,20 @@ class FeedController: UICollectionViewController {
         navigationController?.navigationBar.isHidden = false
     }
     
+    //MARK: - Selectors
+    
+    @objc func handleRefresh() {
+        fetchPosts()
+    }
+    
     //MARK: - API
     
     func fetchPosts() {
+        collectionView.refreshControl?.beginRefreshing()
         PostService.shared.fetchPosts { (posts) in
             self.posts = posts.sorted(by: { $0.timestamp > $1.timestamp })
             self.checkIfUserLikedPosts()
+            self.collectionView.refreshControl?.endRefreshing()
         }
     }
     
@@ -89,6 +97,10 @@ class FeedController: UICollectionViewController {
         navigationItem.title = "タイムライン"
         
         collectionView.register(PostCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        
+        let refreshControl = UIRefreshControl()
+        collectionView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
     }
     
     func configureSearchController() {
