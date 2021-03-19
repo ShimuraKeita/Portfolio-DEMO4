@@ -33,14 +33,28 @@ struct PostService {
     
     func fetchPosts(completion: @escaping([Post]) -> Void) {
         var posts = [Post]()
-
-        REF_POSTS.observe(.childAdded) { (snapshot) in
-            guard let dictionary = snapshot.value as? [String: Any] else { return }
-            guard let uid = dictionary["uid"] as? String else { return }
-            let postID = snapshot.key
+        guard let currentuid = Auth.auth().currentUser?.uid else { return }
+        
+        REF_USER_FOLLOWING.child(currentuid).observe(.childAdded) { (snapshot) in
+            let followingUid = snapshot.key
+            print("followingUid\(followingUid)")
             
-            UserService.shared.fetchUser(uid: uid) { (user) in
-                let post = Post(user: user, postID: postID, dictionary: dictionary)
+            REF_USER_POSTS.child(followingUid).observe(.childAdded) { (snapshot) in
+                let postID = snapshot.key
+                print("postID\(postID)")
+                
+                self.fetchPost(withPostID: snapshot.key) { post in
+                    posts.append(post)
+                    completion(posts)
+                }
+            }
+        }
+        
+        REF_USER_POSTS.child(currentuid).observe(.childAdded) { (snapshot) in
+            let postID = snapshot.key
+            print("postID\(postID)")
+            
+            self.fetchPost(withPostID: snapshot.key) { post in
                 posts.append(post)
                 completion(posts)
             }
@@ -83,11 +97,11 @@ struct PostService {
             REF_POST_REPLIES.child(postKey).child(replyKey).observeSingleEvent(of: .value) { snapshot in
                 guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
                 guard let uid = dictionary["uid"] as? String else { return }
-                let postID = snapshot.key
+                let replyID = snapshot.key
                 
                 UserService.shared.fetchUser(uid: uid) { user in
-                    let post = Post(user: user, postID: postID, dictionary: dictionary)
-                    replies.append(post)
+                    let reply = Post(user: user, postID: replyID, dictionary: dictionary)
+                    replies.append(reply)
                     completion(replies)
                 }
             }
