@@ -183,7 +183,12 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
 extension ProfileController: ProfileHeaderDelegate {
     func handleEditProfileFollow(_ header: ProfileHeader) {
         if user.isCurrentUser {
-            
+            let controller = EditProfileController(user: user)
+//            controller.delegate = self
+            let nav = UINavigationController(rootViewController: controller)
+            nav.modalPresentationStyle = .fullScreen
+            present(nav, animated: true, completion: nil)
+            return
         }
                         
         if user.isFollowed {
