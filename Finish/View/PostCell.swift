@@ -112,19 +112,16 @@ class PostCell: UICollectionViewCell {
         actionStack.axis = .horizontal
         actionStack.spacing = 72
         
-        addSubview(optionsButton)
-        optionsButton.centerY(inView: profileImageView)
-        optionsButton.anchor(right: rightAnchor, paddingRight: 8)
-        
         addSubview(actionStack)
         actionStack.centerX(inView: self)
         actionStack.anchor(bottom: bottomAnchor, paddingBottom: 8)
         
         let underlineView = UIView()
-        underlineView.backgroundColor = .lightGray
+        underlineView.backgroundColor = .systemGroupedBackground
         addSubview(underlineView)
         underlineView.anchor(left: leftAnchor, bottom: bottomAnchor,
-                             right: rightAnchor, height: 0.3)
+                             right: rightAnchor, height: 1)
+        
     }
     
     required init?(coder: NSCoder) {

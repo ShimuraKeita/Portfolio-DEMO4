@@ -12,7 +12,7 @@ struct PostService {
     
     func uploadPost(caption: String, type: UploadPostConfiguration, completion: @escaping(DatabaseCompletion)) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        let values = [KEY_CAPTION: caption,
+        var values = [KEY_CAPTION: caption,
                       KEY_TIMESTAMP: Int(NSDate().timeIntervalSince1970),
                       KEY_LIKES: 0,
                       KEY_UID: uid] as [String : Any]
