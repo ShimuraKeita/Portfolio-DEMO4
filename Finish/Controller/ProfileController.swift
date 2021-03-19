@@ -51,6 +51,7 @@ class ProfileController: UICollectionViewController {
         configureCollectionView()
         fetchPosts()
         fetchLikedPosts()
+        fetchReplies()
         checkIfUserIsFollowed()
         fetchUserStats()
     }
@@ -79,7 +80,9 @@ class ProfileController: UICollectionViewController {
     }
     
     func fetchReplies() {
-        
+        PostService.shared.fetchReplies(forUser: user) { (posts) in
+            self.replies = posts
+        }
     }
     
     func checkIfUserLikedPosts() {
