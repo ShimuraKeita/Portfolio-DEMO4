@@ -46,12 +46,20 @@ class SearchController: UICollectionViewController {
         navigationController?.navigationBar.isHidden = false
     }
     
+    //MARK: - Selectors
+    
+    @objc func handleRefresh() {
+        fetchUsers()
+    }
+    
     //MARK: - API
     
     func fetchUsers() {
+        collectionView.refreshControl?.beginRefreshing()
         UserService.shared.fetchUsers { (users) in
             self.users = users
             self.collectionView.reloadData()
+            self.collectionView.refreshControl?.endRefreshing()
         }
     }
     
@@ -66,6 +74,12 @@ class SearchController: UICollectionViewController {
         navigationItem.title = "ユーザー検索"
         
         collectionView.register(UserCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        
+        let refreshControl = UIRefreshControl()
+        collectionView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     func configureSearchController() {

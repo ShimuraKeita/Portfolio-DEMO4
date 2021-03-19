@@ -112,6 +112,10 @@ class PostCell: UICollectionViewCell {
         actionStack.axis = .horizontal
         actionStack.spacing = 72
         
+        addSubview(optionsButton)
+        optionsButton.centerY(inView: profileImageView)
+        optionsButton.anchor(right: rightAnchor, paddingRight: 8)
+        
         addSubview(actionStack)
         actionStack.centerX(inView: self)
         actionStack.anchor(bottom: bottomAnchor, paddingBottom: 8)
