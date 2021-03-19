@@ -48,6 +48,7 @@
 		23876E672602AB41004046A6 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23876E662602AB41004046A6 /* NotificationCell.swift */; };
 		23876E6A2602B24A004046A6 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23876E692602B24A004046A6 /* NotificationViewModel.swift */; };
 		23876E6D2604D6DA004046A6 /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23876E6C2604D6DA004046A6 /* EditProfileController.swift */; };
+		23876E712604DC6F004046A6 /* EditProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23876E702604DC6F004046A6 /* EditProfileHeader.swift */; };
 		23A627C925FF86E80040C0BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A627C825FF86E80040C0BB /* AppDelegate.swift */; };
 		23A627CB25FF86E80040C0BB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A627CA25FF86E80040C0BB /* SceneDelegate.swift */; };
 		23A627CD25FF86E80040C0BB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A627CC25FF86E80040C0BB /* ViewController.swift */; };
@@ -100,6 +101,7 @@
 		23876E662602AB41004046A6 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		23876E692602B24A004046A6 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
 		23876E6C2604D6DA004046A6 /* EditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileController.swift; sourceTree = "<group>"; };
+		23876E702604DC6F004046A6 /* EditProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileHeader.swift; sourceTree = "<group>"; };
 		23A627C525FF86E80040C0BB /* Finish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Finish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23A627C825FF86E80040C0BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		23A627CA25FF86E80040C0BB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -132,6 +134,17 @@
 				23876E16260059F7004046A6 /* ForgotPasswordController.swift */,
 			);
 			path = Authentication;
+			sourceTree = "<group>";
+		};
+		23876E6F2604DC38004046A6 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				23876E3D260112C6004046A6 /* ProfileFilterView.swift */,
+				23876E4026011403004046A6 /* ProfileFilterCell.swift */,
+				23876E3A2601014A004046A6 /* ProfileHeader.swift */,
+				23876E702604DC6F004046A6 /* EditProfileHeader.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		23A627BC25FF86E80040C0BB = {
@@ -230,11 +243,9 @@
 		23A6282A25FF8D4C0040C0BB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				23876E6F2604DC38004046A6 /* Profile */,
 				23876E282600D37B004046A6 /* InputTextView.swift */,
 				23876E312600F47A004046A6 /* PostCell.swift */,
-				23876E3A2601014A004046A6 /* ProfileHeader.swift */,
-				23876E3D260112C6004046A6 /* ProfileFilterView.swift */,
-				23876E4026011403004046A6 /* ProfileFilterCell.swift */,
 				23876E4626021544004046A6 /* UserCell.swift */,
 				23876E5026022C31004046A6 /* PostHeader.swift */,
 				23876E5926024BD6004046A6 /* ActionSheetCell.swift */,
@@ -403,6 +414,7 @@
 				23876DD926004440004046A6 /* SearchController.swift in Sources */,
 				23876DDE2600448A004046A6 /* ConversationsController.swift in Sources */,
 				23876E672602AB41004046A6 /* NotificationCell.swift in Sources */,
+				23876E712604DC6F004046A6 /* EditProfileHeader.swift in Sources */,
 				23876E6A2602B24A004046A6 /* NotificationViewModel.swift in Sources */,
 				23876E5D26024E21004046A6 /* ActionSheetViewModel.swift in Sources */,
 				23A627C925FF86E80040C0BB /* AppDelegate.swift in Sources */,
