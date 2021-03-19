@@ -88,6 +88,6 @@ class EditProfileController: UITableViewController {
 
 extension EditProfileController: EditProfileHeaderDelegate {
     func didTapChangeProfilePhoto() {
-        <#code#>
+        
     }
 }
