@@ -101,6 +101,8 @@ class FeedController: UICollectionViewController {
         let refreshControl = UIRefreshControl()
         collectionView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     func configureSearchController() {
