@@ -178,16 +178,28 @@ extension FeedController: PostCellDelegate {
     
     func handleLikeTapped(_ cell: PostCell) {
         guard let post = cell.post else { return }
+        cell.post?.didLike.toggle()
         
-        PostService.shared.likePost(post: post) { (err, ref) in
-            cell.post?.didLike.toggle()
-            let likes = post.didLike ? post.likes - 1 : post.likes + 1
-            cell.post?.likes = likes
-            
-            guard !post.didLike else { return }
-            NotificationService.shared.uploadNotification(toUser: post.user,
-                                                          type: .like,
-                                                          postID: post.postID)
+        if post.didLike {
+            PostService.shared.unlikePost(post: post) { (err, ref) in
+                
+                let likes = post.likes - 1
+                cell.post?.likes = likes
+                
+//                NotificationService.shared.deleteNotification(toUser: post.user,
+//                                                              type: .like,
+//                                                              postID: post.postID)
+            }
+        } else {
+            PostService.shared.likePost(post: post) { (err, ref) in
+                
+                let likes = post.likes + 1
+                cell.post?.likes = likes
+                
+                NotificationService.shared.uploadNotification(toUser: post.user,
+                                                              type: .like,
+                                                              postID: post.postID)
+            }
         }
     }
     
@@ -226,11 +238,11 @@ extension FeedController: ActionSheetLauncherDelegate {
         switch option {
         case .follow(let user):
             UserService.shared.followUser(uid: user.uid) { (err, ref) in
-                print("DEBUG: Did follow user \(user.username)")
+                NotificationService.shared.uploadNotification(toUser: user, type: .follow)
             }
         case .unfollow(let user):
             UserService.shared.unfollowUser(uid: user.uid) { (err, ref) in
-                print("DEBUG: Did unfollow user \(user.username)")
+                //deleteNotification()
             }
         case .report:
             print("DEBUG: Report tweet")

@@ -63,7 +63,7 @@ class EditProfileCell: UITableViewCell {
         addSubview(bioTextView)
         bioTextView.anchor(top: topAnchor, left: titleLabel.rightAnchor,
                            bottom: bottomAnchor, right: rightAnchor,
-                           paddingTop: 4, paddingLeft: 14, paddingRight: 8)
+                           paddingTop: 4, paddingLeft: 12, paddingRight: 8)
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleUpdateUserInfo),
                                                name: UITextView.textDidEndEditingNotification,
@@ -96,5 +96,6 @@ class EditProfileCell: UITableViewCell {
         bioTextView.placeholderLabel.text = viewModel.optionPlaceholderText
         bioTextView.placeholderLabel.isHidden = viewModel.shouldHidePlaceholderLabel
         bioTextView.text = viewModel.optionValue
+        bioTextView.placeholderLabel.font = UIFont.systemFont(ofSize: 14)
     }
 }

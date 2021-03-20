@@ -58,8 +58,8 @@ class ProfileController: UICollectionViewController {
         configureCollectionView()
         configureNavigationBar()
         fetchPosts()
-        fetchLikedPosts()
         fetchReplies()
+        fetchLikedPosts()
         checkIfUserIsFollowed()
         fetchUserStats()
     }
@@ -86,17 +86,17 @@ class ProfileController: UICollectionViewController {
         }
     }
     
-    func fetchLikedPosts() {
-        PostService.shared.fetchLikes(forUser: user) { posts in
-            self.likedPosts = posts.sorted(by: { $0.timestamp > $1.timestamp })
+    func fetchReplies() {
+        PostService.shared.fetchReplies(forUser: user) { (posts) in
+            self.replies = posts.sorted(by: { $0.timestamp > $1.timestamp })
             self.checkIfUserLikedPosts()
             self.collectionView.reloadData()
         }
     }
     
-    func fetchReplies() {
-        PostService.shared.fetchReplies(forUser: user) { (posts) in
-            self.replies = posts.sorted(by: { $0.timestamp > $1.timestamp })
+    func fetchLikedPosts() {
+        PostService.shared.fetchLikes(forUser: user) { posts in
+            self.likedPosts = posts.sorted(by: { $0.timestamp > $1.timestamp })
             self.checkIfUserLikedPosts()
             self.collectionView.reloadData()
         }
@@ -213,6 +213,8 @@ extension ProfileController: ProfileHeaderDelegate {
             UserService.shared.unfollowUser(uid: user.uid) { (err, ref) in
                 self.user.isFollowed = false
                 self.collectionView.reloadData()
+                
+                //deletenotification
             }
         } else {
             UserService.shared.followUser(uid: user.uid) { (ref, err) in
@@ -257,6 +259,8 @@ extension ProfileController: ActionSheetLauncherDelegate {
             UserService.shared.unfollowUser(uid: user.uid) { (err, ref) in
                 self.user.isFollowed = false
                 self.collectionView.reloadData()
+                
+                //deletenotification
             }
         case .report:
             print("DEBUG: Report tweet")
@@ -290,15 +294,28 @@ extension ProfileController: PostCellDelegate {
     func handleLikeTapped(_ cell: PostCell) {
         guard let post = cell.post else { return }
         
-        PostService.shared.likePost(post: post) { (err, ref) in
-            cell.post?.didLike.toggle()
-            let likes = post.didLike ? post.likes - 1 : post.likes + 1
-            cell.post?.likes = likes
-            
-            guard !post.didLike else { return }
-            NotificationService.shared.uploadNotification(toUser: post.user,
-                                                          type: .like,
-                                                          postID: post.postID)
+        cell.post?.didLike.toggle()
+        
+        if post.didLike {
+            PostService.shared.unlikePost(post: post) { (err, ref) in
+                
+                let likes = post.likes - 1
+                cell.post?.likes = likes
+                
+//                NotificationService.shared.deleteNotification(toUser: post.user,
+//                                                              type: .like,
+//                                                              postID: post.postID)
+            }
+        } else {
+            PostService.shared.likePost(post: post) { (err, ref) in
+                
+                let likes = post.likes + 1
+                cell.post?.likes = likes
+                
+                NotificationService.shared.uploadNotification(toUser: post.user,
+                                                              type: .like,
+                                                              postID: post.postID)
+            }
         }
     }
     

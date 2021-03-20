@@ -157,10 +157,14 @@ extension SearchController: UserCellDelegate {
         if user.isFollowed {
             UserService.shared.unfollowUser(uid: user.uid) { (err, ref) in
                 cell.user?.isFollowed = false
+                
+                //deletenotification
             }
         } else {
             UserService.shared.followUser(uid: user.uid) { (err, ref) in
                 cell.user?.isFollowed = true
+                
+                NotificationService.shared.uploadNotification(toUser: user, type: .follow)
             }
         }
     }
@@ -187,11 +191,11 @@ extension SearchController: ActionSheetLauncherDelegate {
         switch option {
         case .follow(let user):
             UserService.shared.followUser(uid: user.uid) { (err, ref) in
-                print("DEBUG: Did follow user \(user.username)")
+                NotificationService.shared.uploadNotification(toUser: user, type: .follow)
             }
         case .unfollow(let user):
             UserService.shared.unfollowUser(uid: user.uid) { (err, ref) in
-                print("DEBUG: Did unfollow user \(user.username)")
+                //deletenotification
             }
         case .report:
             print("DEBUG: Report tweet")

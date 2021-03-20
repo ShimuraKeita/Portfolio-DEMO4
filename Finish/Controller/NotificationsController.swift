@@ -122,12 +122,12 @@ extension NotificationsController: NotificationCellDelegate {
         if user.isFollowed {
             UserService.shared.unfollowUser(uid: user.uid) { (err, ref) in
                 cell.notification?.user.isFollowed = false
-                //通知送る
+                //deletenotification
             }
         } else {
             UserService.shared.followUser(uid: user.uid) { (err, ref) in
                 cell.notification?.user.isFollowed = true
-                //通知delete
+                NotificationService.shared.uploadNotification(toUser: user, type: .follow)
             }
         }
     }

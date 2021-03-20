@@ -30,7 +30,7 @@ class InputTextView: UITextView {
         
         addSubview(placeholderLabel)
         placeholderLabel.anchor(top: topAnchor, left: leftAnchor,
-                                paddingTop: 8, paddingLeft: 4)
+                                paddingTop: 8, paddingLeft: 3)
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleTextInputChange),
                                                name: UITextView.textDidChangeNotification, object: nil)
