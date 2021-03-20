@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Firebase
 import ActiveLabel
 
 class UploadPostController: UIViewController {
@@ -91,9 +90,9 @@ class UploadPostController: UIViewController {
                                                               type: .reply,
                                                               postID: post.postID)
             }
-
-            self.dismiss(animated: true, completion: nil)
         }
+        
+        dismiss(animated: true, completion: nil)
     }
 
     //MARK: - API

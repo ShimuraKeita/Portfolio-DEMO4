@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Firebase
 
 private let reuseIdentifier = "PostCell"
 private let headerIdentifier = "ProfileHeader"

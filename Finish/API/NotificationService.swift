@@ -14,6 +14,7 @@ struct NotificationService {
                             type: NotificationType,
                             postID: String? = nil) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard user.uid != uid else { return }
         
         var values: [String: Any] = ["timestamp": Int(NSDate().timeIntervalSince1970),
                                      "uid": uid,
