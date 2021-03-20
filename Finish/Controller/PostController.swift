@@ -19,6 +19,14 @@ class PostController: UICollectionViewController {
         didSet { collectionView.reloadData() }
     }
     
+    private lazy var dismissButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        button.tintColor = UIColor(named: "buttonTitleColor")
+        button.addTarget(self, action: #selector(handleDismissal), for: .touchUpInside)
+        return button
+    }()
+    
     //MARK: - Lifecycle
     
     init(post: Post) {
@@ -34,8 +42,15 @@ class PostController: UICollectionViewController {
         super.viewDidLoad()
         
         configureCollectionView()
+        configureNavigationBar()
         fetchReplies()
         checkIfUserIsFollowed()
+    }
+    
+    //MARK: - Selectors
+    
+    @objc func handleDismissal() {
+        navigationController?.popViewController(animated: true)
     }
 
     //MARK: - API
@@ -60,6 +75,10 @@ class PostController: UICollectionViewController {
         
         collectionView.register(PostCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.register(PostHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
+    }
+    
+    func configureNavigationBar() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: dismissButton)
     }
     
     fileprivate func showActionSheet(forUser user: User) {

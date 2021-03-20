@@ -33,6 +33,14 @@ class ProfileController: UICollectionViewController {
         }
     }
     
+    private lazy var dismissButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        button.tintColor = UIColor(named: "buttonTitleColor")
+        button.addTarget(self, action: #selector(handleDismissal), for: .touchUpInside)
+        return button
+    }()
+    
     //MARK: - Lifecycle
     
     init(user: User) {
@@ -48,6 +56,7 @@ class ProfileController: UICollectionViewController {
         super.viewDidLoad()
         
         configureCollectionView()
+        configureNavigationBar()
         fetchPosts()
         fetchLikedPosts()
         fetchReplies()
@@ -62,6 +71,10 @@ class ProfileController: UICollectionViewController {
     }
 
     //MARK: - Selectors
+    
+    @objc func handleDismissal() {
+        navigationController?.popViewController(animated: true)
+    }
     
     //MARK: - API
     
@@ -126,6 +139,10 @@ class ProfileController: UICollectionViewController {
         
         guard let tabHeight = tabBarController?.tabBar.frame.height else { return }
         collectionView.contentInset.bottom = tabHeight
+    }
+    
+    func configureNavigationBar() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: dismissButton)
     }
     
     fileprivate func showActionSheet(forUser user: User) {

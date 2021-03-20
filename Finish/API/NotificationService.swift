@@ -27,8 +27,20 @@ struct NotificationService {
         REF_NOTIFICATIONS.child(user.uid).childByAutoId().updateChildValues(values)
     }
     
-    func deleteNotification() {
+    func deleteNotification(toUser user: User, type: NotificationType, postId: String? = nil) {
         
+        REF_NOTIFICATIONS.child(user.uid).observeSingleEvent(of: .value) { (snapshot) in
+            guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
+            let notification = Notification(user: user, dictionary: dictionary)
+            
+            guard notification.type == type else { return }
+            
+            if postId != nil {
+                guard postId == notification.postID else { return }
+            }
+            
+            snapshot.ref.removeValue()
+        }
     }
     
     fileprivate func fetchNotifications(uid: String, completion: @escaping([Notification]) -> Void) {
