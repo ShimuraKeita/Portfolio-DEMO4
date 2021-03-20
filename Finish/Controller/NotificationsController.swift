@@ -45,7 +45,7 @@ class NotificationsController: UITableViewController {
         
         NotificationService.shared.fetchNotifications { notifications in
             self.refreshControl?.endRefreshing()
-            self.notifications = notifications
+            self.notifications = notifications.sorted(by: { $0.timestamp > $1.timestamp })
             self.checkIfUserIsFollowed(notifications: notifications)
         }
     }
