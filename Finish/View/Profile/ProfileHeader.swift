@@ -37,12 +37,14 @@ class ProfileHeader: UICollectionReusableView {
     private let fullnameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.numberOfLines = 0
         return label
     }()
     
     private let usernameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.numberOfLines = 0
         label.tintColor = UIColor(named: "labelTextColor")
         return label
     }()
@@ -50,6 +52,7 @@ class ProfileHeader: UICollectionReusableView {
     private let sickLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.numberOfLines = 0
         label.tintColor = UIColor(named: "labelTextColor")
         return label
     }()
@@ -57,6 +60,7 @@ class ProfileHeader: UICollectionReusableView {
     private let bioLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.numberOfLines = 0
         return label
     }()
     

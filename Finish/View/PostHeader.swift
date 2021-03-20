@@ -43,7 +43,7 @@ class PostHeader: UICollectionReusableView {
     private let fullnameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 14)
-        label.text = "Peter Parker"
+        label.numberOfLines = 0
         return label
     }()
     
@@ -51,7 +51,7 @@ class PostHeader: UICollectionReusableView {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .lightGray
-        label.text = "spiderman"
+        label.numberOfLines = 0
         return label
     }()
     
@@ -69,7 +69,6 @@ class PostHeader: UICollectionReusableView {
         label.textColor = .lightGray
         label.font = UIFont.systemFont(ofSize: 14)
         label.textAlignment = .left
-        label.text = "6:33 PM - 1/28/2020"
         return label
     }()
     

@@ -107,6 +107,7 @@ class PostCell: UICollectionViewCell {
                      paddingLeft: 12, paddingRight: 12)
         
         infoLabel.font = UIFont.systemFont(ofSize: 14)
+        infoLabel.numberOfLines = 0
         
         let actionStack = UIStackView(arrangedSubviews: [commentButton, likeButton])
         actionStack.axis = .horizontal

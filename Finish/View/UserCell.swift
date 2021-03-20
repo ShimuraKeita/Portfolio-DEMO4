@@ -33,12 +33,14 @@ class UserCell: UICollectionViewCell {
     private let fullnameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.numberOfLines = 0
         return label
     }()
     
     private let usernameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
+        label.numberOfLines = 0
         label.textColor = .lightGray
         return label
     }()
@@ -46,6 +48,7 @@ class UserCell: UICollectionViewCell {
     private let sickLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 12)
+        label.numberOfLines = 0
         label.textColor = UIColor(named: "labelTextColor")
         return label
     }()
@@ -53,6 +56,7 @@ class UserCell: UICollectionViewCell {
     private let bioLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
+        label.numberOfLines = 0
         return label
     }()
     
