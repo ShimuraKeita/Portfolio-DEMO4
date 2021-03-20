@@ -43,6 +43,7 @@ class NotificationCell: UITableViewCell {
         button.layer.borderColor = UIColor.systemPink.cgColor
         button.layer.borderWidth = 0.5
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        button.setDimensions(width: 88, height: 32)
         button.addTarget(self, action: #selector(handleFollowTapped), for: .touchUpInside)
         return button
     }()
@@ -62,18 +63,13 @@ class NotificationCell: UITableViewCell {
         
         selectionStyle = .none
         
-        let stack = UIStackView(arrangedSubviews: [profileImageView, notificationLabel])
+        let stack = UIStackView(arrangedSubviews: [profileImageView, notificationLabel, followButton])
         stack.spacing = 8
         stack.alignment = .center
         
         addSubview(stack)
         stack.centerY(inView: self, leftAnchor: leftAnchor, paddingLeft: 12)
         stack.anchor(right: rightAnchor, paddingRight: 12)
-        
-        addSubview(followButton)
-        followButton.anchor(top: stack.bottomAnchor, left: leftAnchor,
-                                       right: rightAnchor, paddingTop: 16,
-                                       paddingLeft: 24, paddingRight: 24)
     }
     
     required init?(coder: NSCoder) {
