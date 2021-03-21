@@ -23,7 +23,7 @@ struct AuthService {
         Auth.auth().signIn(withEmail: email, password: password, completion: completion)
     }
     
-    func registerUser(credentials: AuthCredentials, completion: @escaping(Error?, DatabaseReference) -> Void) {
+    func registerUser(credentials: AuthCredentials, completion: @escaping(Error?) -> Void) {
         let email = credentials.email
         let password = credentials.password
         let username = credentials.username
@@ -45,15 +45,18 @@ struct AuthService {
                     }
                                         
                     guard let uid = result?.user.uid else { return }
-                                        
-                    let values = ["email": email,
-                                  "username": username,
-                                  "fullname": fullname,
-                                  "profileImageUrl": profileImageUrl]
                     
-                    REF_USERS.child(uid).updateChildValues(values) { (err, ref) in
-                        REF_USER_USERNAMES.updateChildValues([username: uid], withCompletionBlock: completion)
-                    }
+                    let data = ["email": email,
+                                "username": username,
+                                "fullname": fullname,
+                                "uid": uid,
+                                "profileImageUrl": profileImageUrl]
+                    
+                    COLLECTION_USERS.document(uid).setData(data, completion: completion)
+                    
+//                    REF_USERS.child(uid).updateChildValues(values) { (err, ref) in
+//                        REF_USER_USERNAMES.updateChildValues([username: uid], withCompletionBlock: completion)
+//                    }
                 }
             }
         }

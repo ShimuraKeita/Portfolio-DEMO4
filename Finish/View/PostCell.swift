@@ -13,11 +13,12 @@ protocol PostCellDelegate: class {
     func handleReplyTapped(_ cell: PostCell)
     func handleLikeTapped(_ cell: PostCell)
     func showActionSheet(_ cell: PostCell)
+    func handleFetchUser(withUsername username: String)
 }
 
 class PostCell: UICollectionViewCell {
     
-    //MARK: - Properties
+    // MARK: - Properties
     
     var post: Post? {
         didSet { configure() }
@@ -79,7 +80,7 @@ class PostCell: UICollectionViewCell {
         return button
     }()
     
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -107,15 +108,14 @@ class PostCell: UICollectionViewCell {
                      paddingLeft: 12, paddingRight: 12)
         
         infoLabel.font = UIFont.systemFont(ofSize: 14)
-        infoLabel.numberOfLines = 0
-        
-        let actionStack = UIStackView(arrangedSubviews: [commentButton, likeButton])
-        actionStack.axis = .horizontal
-        actionStack.spacing = 72
         
         addSubview(optionsButton)
         optionsButton.centerY(inView: profileImageView)
         optionsButton.anchor(right: rightAnchor, paddingRight: 8)
+        
+        let actionStack = UIStackView(arrangedSubviews: [commentButton, likeButton])
+        actionStack.axis = .horizontal
+        actionStack.spacing = 72
         
         addSubview(actionStack)
         actionStack.centerX(inView: self)
@@ -125,15 +125,16 @@ class PostCell: UICollectionViewCell {
         underlineView.backgroundColor = .lightGray
         addSubview(underlineView)
         underlineView.anchor(left: leftAnchor, bottom: bottomAnchor,
-                             right: rightAnchor, height: 1)
+                             right: rightAnchor, height: 0.3)
         
+        configureMentionHandler()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Selectors
+    // MARK: - Selectors
     
     @objc func handleProfileImageTapped() {
         delegate?.handleProfileImageTapped(self)
@@ -150,15 +151,15 @@ class PostCell: UICollectionViewCell {
     @objc func showActionSheet() {
         delegate?.showActionSheet(self)
     }
-
-    //MARK: - Helpers
+    
+    // MARK: - Helpers
     
     func configure() {
         guard let post = post else { return }
         let viewModel = PostViewModel(post: post)
         
         captionLabel.text = post.caption
-                
+        
         profileImageView.sd_setImage(with: viewModel.profileImageUrl)
         infoLabel.attributedText = viewModel.userInfoText
         
@@ -168,13 +169,18 @@ class PostCell: UICollectionViewCell {
         replyLabel.isHidden = viewModel.shouldHideReplyLabel
         replyLabel.text = viewModel.replyText
     }
-
+    
     func createButton(withImageName imageName: String) -> UIButton {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: imageName), for: .normal)
-        button.tintColor = UIColor(named: "labelTextColor")
+        button.tintColor = .darkGray
         button.setDimensions(width: 20, height: 20)
         return button
     }
     
+    func configureMentionHandler() {
+        captionLabel.handleMentionTap { username in
+            self.delegate?.handleFetchUser(withUsername: username)
+        }
+    }
 }

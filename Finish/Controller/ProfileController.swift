@@ -187,7 +187,14 @@ extension ProfileController {
 
 extension ProfileController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 300)
+
+        var height: CGFloat = 300
+        
+        if user.bio != "" {
+            height += 100
+        }
+        
+        return CGSize(width: view.frame.width, height: height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -277,6 +284,10 @@ extension ProfileController: ActionSheetLauncherDelegate {
 //MARK: - PostCellDelegate
 
 extension ProfileController: PostCellDelegate {
+    func handleFetchUser(withUsername username: String) {
+        
+    }
+    
     func handleProfileImageTapped(_ cell: PostCell) {
         guard let user = cell.post?.user else { return }
         let controller = ProfileController(user: user)

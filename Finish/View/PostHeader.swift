@@ -55,6 +55,14 @@ class PostHeader: UICollectionReusableView {
         return label
     }()
     
+    private let sickLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 12)
+        label.textColor = .lightGray
+        label.numberOfLines = 0
+        return label
+    }()
+    
     private let captionLabel: ActiveLabel = {
         let label = ActiveLabel()
         label.font = UIFont.systemFont(ofSize: 20)
@@ -111,7 +119,7 @@ class PostHeader: UICollectionReusableView {
         
         backgroundColor = UIColor(named: "backgroundColor")
         
-        let labelStack = UIStackView(arrangedSubviews: [fullnameLabel, usernameLabel])
+        let labelStack = UIStackView(arrangedSubviews: [fullnameLabel, usernameLabel, sickLabel])
         labelStack.axis = .vertical
         labelStack.spacing = -6
         

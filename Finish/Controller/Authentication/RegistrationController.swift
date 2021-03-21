@@ -122,10 +122,11 @@ class RegistrationController: UIViewController {
         if password == repeatPassword {
             let credentials = AuthCredentials(email: email, password: password, fullname: fullname, username: username, profileImage: profileImage)
             
-            AuthService.shared.registerUser(credentials: credentials) { (error, ref) in
+            AuthService.shared.registerUser(credentials: credentials) { (error) in
                 if let error = error {
                     self.showLoader(false)
                     ProgressHUD.showError(error.localizedDescription)
+                    return
                 }
                 
                 self.showLoader(false)

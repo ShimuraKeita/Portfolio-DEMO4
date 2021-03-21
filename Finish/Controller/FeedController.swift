@@ -162,6 +162,10 @@ extension FeedController: UICollectionViewDelegateFlowLayout {
 //MARK: - PostCellDelegate
 
 extension FeedController: PostCellDelegate {
+    func handleFetchUser(withUsername username: String) {
+        
+    }
+    
     func handleProfileImageTapped(_ cell: PostCell) {
         guard let user = cell.post?.user else { return }
         let controller = ProfileController(user: user)

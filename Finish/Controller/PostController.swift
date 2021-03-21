@@ -57,7 +57,8 @@ class PostController: UICollectionViewController {
     
     func fetchReplies() {
         PostService.shared.fetchReplies(forPost: post) { replies in
-            self.replies = replies
+            self.replies = replies.sorted(by: { $0.timestamp > $1.timestamp })
+            self.collectionView.reloadData()
         }
     }
     
@@ -182,6 +183,10 @@ extension PostController: PostHeaderDelegate {
 //MARK: - PostCellDelegate
 
 extension PostController: PostCellDelegate {
+    func handleFetchUser(withUsername username: String) {
+        
+    }
+    
     func handleProfileImageTapped(_ cell: PostCell) {
         guard let user = cell.post?.user else { return }
         let controller = ProfileController(user: user)
